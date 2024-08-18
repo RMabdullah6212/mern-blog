@@ -110,7 +110,7 @@
 //     <div className="inline-block mb-1 h-full lg:hidden md:hidden sm:hidden">
 //       <button
 //         onClick={toggleMenu}
-//         className="flex items-center justify-center p-1 text-gray-700 hover:text-gray-900 focus:outline-none"
+//         className="flex items-center justify-center p-1 hover:text-gray-900 focus:outline-none"
 //       >
 //         <FaBars  color={isDarkMode ? 'white' : 'black'} size={24} />
 //       </button>
@@ -118,25 +118,25 @@
 //         <div className="absolute right-0 w-30 mt-2 origin-top-right bg-white border border-gray-300 rounded-md shadow-lg">
 //           <Link
 //             to="/"
-//             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+//             className="block px-4 py-2 text-sm hover:bg-gray-100"
 //           >
 //             Home
 //           </Link>
 //           <Link
 //             to="/about"
-//             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+//             className="block px-4 py-2 text-sm hover:bg-gray-100"
 //           >
 //             About
 //           </Link>
 //           <Link
 //             to="/projects"
-//             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+//             className="block px-4 py-2 text-sm hover:bg-gray-100"
 //           >
 //             Projects
 //           </Link>
 //           <Link
 //             to="/sign-in"
-//             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+//             className="block px-4 py-2 text-sm hover:bg-gray-100"
 //           >
 //             Sign In
 //           </Link>
@@ -235,7 +235,7 @@ export default function Home() {
                   <AiOutlineSearch className='justify-end border-none text-black rounded-full bg-white' enableBackground={''} />
                 </button>
               </div>
-              <div id='menu' className='lg:block md:block sm:block hidden text-center font-semibold space-x-4 ml-3'>
+              <div id='menu' className='lg:block md:block sm:block hidden text-black text-center font-semibold space-x-4 ml-3'>
                 <Link to='/'>Home</Link>
                 <Link to='/about'>About</Link>
                 <Link to='/projects'>Projects</Link>
@@ -250,36 +250,36 @@ export default function Home() {
             <button onClick={toggleTheme} color='gray' className='mb-1 lg:mb-0'>
               <FaMoon color={isDarkMode ? 'white' : 'black'} className='size-6' />
             </button>
-            <div className='inline-block mb-1 h-full lg:hidden md:hidden sm:hidden'>
+            <div className='inline-block mb-1 h-full lg:hidden md:hidden sm:hidden' >
               <button
                 onClick={toggleMenu}
-                className='flex items-center justify-center p-1 text-gray-700 hover:text-gray-900 focus:outline-none'
+                className='flex items-center justify-center p-1 hover:text-gray-900 focus:outline-none'
               >
                 <FaBars color={'black'} size={24} />
               </button>
               {isOpen && (
-                <div className='absolute right-0 w-30 mt-2 origin-top-right bg-white border border-gray-300 rounded-md shadow-lg'>
+                <div className='absolute right-0 w-30 mt-2 origin-top-right rounded-md shadow-lg ' color={isDarkMode ? 'white' : 'black'} >
                   <Link
                     to='/'
-                    className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                    className='block px-4 py-2 text-sm hover:bg-gray-100'
                   >
                     Home
                   </Link>
                   <Link
                     to='/about'
-                    className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                    className='block px-4 py-2 text-sm hover:bg-gray-100'
                   >
                     About
                   </Link>
                   <Link
                     to='/projects'
-                    className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                    className='block px-4 py-2 text-sm hover:bg-gray-100'
                   >
                     Projects
                   </Link>
                   <Link
                     to='/sign-in'
-                    className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                    className='block px-4 py-2 text-sm hover:bg-gray-100'
                   >
                     Sign In
                   </Link>
