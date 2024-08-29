@@ -43,9 +43,9 @@ export default function SignUp() {
 
   return (
     <div className="min-h-max mt-14">
-      <div className="flex p-3 justify-center items-center max-w-3xl h-full mx-auto flex-col sm:flex-row md:items-center gap-5">
+      <div className="flex p-3  max-w-3xl h-full mx-auto flex-col sm:flex-row  gap-5">
         {/* left */}
-        <div className="flex flex-col flex-1 justify-center items-center h-full">
+        <div className="flex flex-col flex-1 justify-center items-center h-full sm:mt-24 ">
           <Link to="/" className="md:text-4xl flex justify-center items-center w-full">
             <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white font-bold">
               Abdullah's
