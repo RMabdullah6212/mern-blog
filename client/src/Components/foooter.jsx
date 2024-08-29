@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { FaGithub, FaLinkedin} from 'react-icons/fa';
 
 const Footer = () => {
+  const year = new Date().getFullYear();
   return (
     <footer className="bg-gray-800 text-white py-2 fixed bottom-0 w-full border border-t-4 border-teal-500">
       <div className="container mx-auto px-4">
@@ -14,7 +15,7 @@ const Footer = () => {
             </span>
             Blog
           </Link>
-            <p className="text-xs pt-2">© All rights reserved.</p>
+            <p className="text-xs pt-2">© All rights reserved {year}.</p>
           </div>
 
           <div className="flex space-x-3">
