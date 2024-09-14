@@ -2,48 +2,47 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInStart, signInFailure, signInSuccess } from '../redux/user/userslice';
 
-export default function signin() {
-  const [formData, setformData] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [isLoading, setLoading] = useState(false);
+export default function Signin() {
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setformData({ ...formData, [e.target.id]: e.target.value.trim() });
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      return setErrorMessage('Please fill out all fields.');
+      return dispatch(signInFailure('Please fill out all fields.'));
     }
     try {
-      setLoading(true);
-      setErrorMessage(null);
+      dispatch(signInStart());
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      setLoading(false);
-      if (data.success === false) {
-        return setErrorMessage(data.message);
-      }
-      if (res.ok){
+
+      if (!res.ok) {
+        dispatch(signInFailure(data.message));
+      } else {
+        dispatch(signInSuccess(data));
         navigate('/');
       }
-      // Handle successful signup (e.g., redirect or show a success message)
     } catch (error) {
-      setErrorMessage(error.message);
-      setLoading(false);
+      dispatch(signInFailure(error.message));
     }
   };
 
   return (
     <div className="min-h-max mt-14">
-      <div className="flex p-3  max-w-3xl h-full mx-auto flex-col sm:flex-row  gap-5">
+      <div className="flex p-3 max-w-3xl h-full mx-auto flex-col sm:flex-row gap-5">
         {/* left */}
         <div className="flex flex-col flex-1 justify-center items-center h-full sm:mt-16 ">
           <Link to="/" className="md:text-4xl flex justify-center items-center w-full">
@@ -59,7 +58,6 @@ export default function signin() {
 
         {/* right */}
         <form className="flex-1 flex flex-col p-3 w-full h-full space-y-4 font-light text-xs" onSubmit={handleSubmit}>
-        
           <div>
             <p>Your email</p>
             <input
@@ -84,19 +82,19 @@ export default function signin() {
             <button
               type="submit"
               className={`mt-1 w-full rounded-md h-8 ring-0 outline-none cursor-pointer flex items-center justify-center ${
-                isLoading ? 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500' : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'
+                loading ? 'bg-gray-400' : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'
               } text-white font-bold`}
-              disabled={isLoading}
+              disabled={loading}
             >
-              {isLoading ? (
+              {loading ? (
                 <p className="animate-spin inline w-4 h-4 border-2 border-white border-t-transparent rounded-full"></p>
               ) : (
-                "Sign in"
+                'Sign in'
               )}
             </button>
           </div>
           <p>
-            Don't have account? <Link to="/sign-up" className="text-blue-500">Sign up</Link>
+            Don't have an account? <Link to="/sign-up" className="text-blue-500">Sign up</Link>
           </p>
           {errorMessage && (
             <div className="rounded-md bg-red-100 w-full h-8 text-red-800">
