@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Oauth from '../Components/Oauth';
 
 export default function SignUp() {
   const [formData, setformData] = useState({});
@@ -104,6 +105,7 @@ export default function SignUp() {
               )}
             </button>
           </div>
+          <Oauth/>
           <p>
             have an account? <Link to="/sign-in" className="text-blue-500">Sign in</Link>
           </p>

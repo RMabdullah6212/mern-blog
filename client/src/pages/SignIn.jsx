@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInFailure, signInSuccess } from '../redux/user/userslice';
+import Oauth from '../Components/Oauth';
 
 export default function Signin() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -93,6 +94,7 @@ export default function Signin() {
               )}
             </button>
           </div>
+          <Oauth/>
           <p>
             Don't have an account? <Link to="/sign-up" className="text-blue-500">Sign up</Link>
           </p>
