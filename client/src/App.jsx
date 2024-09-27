@@ -9,21 +9,23 @@ import Dashboard from './pages/Dashboard';
 import Projects from './pages/Projects';
 import Header from "./Components/Header";
 import Footer from "./Components/foooter";
-
+import PrivateRoute from "./Components/privateroute";
 function App() {
   return (
     <Router>
-    < Header />
+      < Header />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/projects" element={<Projects />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </Router>
   );
 }

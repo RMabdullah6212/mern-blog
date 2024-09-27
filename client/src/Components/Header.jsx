@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { FaMoon, FaBars, FaUser } from 'react-icons/fa';
+import { FaMoon, FaBars, FaUser, FaSun } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
 export default function Home() {
@@ -92,9 +92,17 @@ export default function Home() {
         {/* 3 */}
         <div id='cont3' className='col-span-2 flex h-max w-full justify-end'>
           <div className='absolute flex space-x-3 lg:mt-0'>
-            <button onClick={toggleTheme} color='gray' className='mb-1 lg:mb-0'>
-              <FaMoon color={isDarkMode ? 'white' : 'black'} className='size-6' />
-            </button>
+          {isDarkMode ? (
+  <button onClick={toggleTheme} className='mb-1 lg:mb-0'>
+    <FaSun className='text-slate-500 size-6' />
+  </button>
+) : (
+  <button onClick={toggleTheme} className='mb-1 lg:mb-0'>
+    <FaMoon className='text-black size-6' />
+  </button>
+)}
+
+            
             <div className="relative inline-block">
       {currentUser ? (
         <div>
