@@ -4,11 +4,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { FaMoon, FaBars } from 'react-icons/fa';
+import { FaMoon, FaBars, FaUser } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 export default function Home() {
   // Initialize the theme state
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const { currentUser } = useSelector(state => state.user)
 
   // Toggle the theme
   const toggleTheme = () => {
@@ -18,9 +20,9 @@ export default function Home() {
   // Update body background color based on theme
   useEffect(() => {
     if (isDarkMode) {
-      document.body.style.backgroundColor = 'gray'; 
+      document.body.style.backgroundColor = 'gray';
       document.body.style.color = 'white';
-      
+
     } else {
       document.body.style.backgroundColor = 'white'; // Light mode background
       document.body.style.color = 'Black';
@@ -32,7 +34,11 @@ export default function Home() {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
+  const [isOpenUser, setIsOpenUser] = useState(false);
+  
+  const toggleUserMenu = () => {
+    setIsOpenUser(!isOpenUser);
+  };
   const handlebuttonClick = () => {
     const input = document.getElementById('search');
     if (input) {
@@ -45,7 +51,7 @@ export default function Home() {
       <div className='grid grid-cols-12 h-full pt-2 pb-2 pl-3 pr-3 bg-transparent'>
 
         {/* 1 */}
-        <div id='cont1' className='col-span-2 justify-start h-full text-black text-sm mt-1.5'>
+        <div id='cont1' className='col-span-2 justify-start h-full text-black sm:text-sm text-xs mt-1.5'>
           <Link to='/' className=''>
             <span className='px-2 py-2 max-h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
               Abdullah's
@@ -89,6 +95,64 @@ export default function Home() {
             <button onClick={toggleTheme} color='gray' className='mb-1 lg:mb-0'>
               <FaMoon color={isDarkMode ? 'white' : 'black'} className='size-6' />
             </button>
+            <div className="relative inline-block">
+      {currentUser ? (
+        <div>
+          <button
+            onClick={toggleUserMenu}
+            type="button"
+            className="flex  items-center justify-center p-1 bg-transparent hover:bg-slate-200 font-medium rounded h-8"
+          >
+          {currentUser.profilePicture ? (
+          <img
+            src={currentUser.profilePicture}
+            alt="User Avatar"
+            className="rounded-full h-8 w-8"
+          />
+        ) : (
+          <FaUser color={'gray'} size={24} />
+        )}
+          </button>
+
+          {isOpenUser && (
+            <div className={`absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-md shadow-lg`}>
+              <div
+                
+                className='block px-4 py-2 overflow-hidden text-sm text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+              >
+                <span className='block text-sm'>@{currentUser.username}</span>
+              <span className='block text-sm font-medium truncate'>
+                {currentUser.email}
+              </span>
+              </div>
+              <Link
+                to={'/dashboard?tab=profile'}
+                className='block px-4 py-2 text-sm text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+              >
+                Dashboard
+              </Link>
+              <div
+                
+                className='block px-4 py-2 hover:cursor-pointer text-sm text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+              >
+                sign out
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <button 
+        className="text-sm justify-between w-fit text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded h-8  text-center"
+        
+        >
+        <Link
+          to="/sign-in"
+          className='pr-1 pl-1'
+        >
+          Sign In
+        </Link></button>
+      )}
+    </div>
             <div className='inline-block mb-1 h-full lg:hidden md:hidden sm:hidden' >
               <button
                 onClick={toggleMenu}
@@ -116,23 +180,10 @@ export default function Home() {
                   >
                     Projects
                   </Link>
-                  <Link
-                    to='/sign-in'
-                    className='block px-4 py-2 text-sm hover:bg-gray-100'
-                  >
-                    Sign In
-                  </Link>
                 </div>
               )}
             </div>
-            <button
-              type='button'
-              className='hidden lg:block md:block sm:block text-sm text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded h-8 text-center'
-            >
-              <Link to='/sign-in' className='m-2'>
-                Sign In
-              </Link>
-            </button>
+          
           </div>
         </div>
 
