@@ -29,7 +29,6 @@ export default function DashProfile() {
   });
 
   useEffect(() => {
-    // Sync formData with the latest currentUser data whenever currentUser is updated
     setFormData({
       username: currentUser.username || '',
       email: currentUser.email || '',
