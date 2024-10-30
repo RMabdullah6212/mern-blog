@@ -1,16 +1,19 @@
 
 
 
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaMoon, FaBars, FaUser, FaSun } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {  signoutSuccess} from '../redux/user/userslice';
+
 
 export default function Home() {
   // Initialize the theme state
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { currentUser } = useSelector(state => state.user)
+  const dispatch = useDispatch();
 
   // Toggle the theme
   const toggleTheme = () => {
@@ -45,7 +48,24 @@ export default function Home() {
       input.focus();
     }
   };
-
+  const handleSignOut = async () =>{
+    try {
+      const res = await fetch('/api/user/signout',{
+        method: 'post',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      }
+      else {
+        dispatch(signoutSuccess());
+      }  
+    
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  
   return (
     <header className='h-12 bg-slate-200 ring-offset-2 ring-2 ring-slate-400 sticky'>
       <div className='grid grid-cols-12 h-full pt-2 pb-2 pl-3 pr-3 bg-transparent'>
@@ -140,7 +160,7 @@ export default function Home() {
                 Dashboard
               </Link>
               <div
-                
+                onClick={handleSignOut}
                 className='block px-4 py-2 hover:cursor-pointer text-sm text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
               >
                 sign out

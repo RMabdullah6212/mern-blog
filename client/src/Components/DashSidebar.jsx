@@ -5,10 +5,16 @@ import {
 } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import {  signoutSuccess} from '../redux/user/userslice';
+
 
 export default function DashSidebar() {
   const location = useLocation();
   const [tab, setTab] = useState('profile');
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -18,7 +24,24 @@ export default function DashSidebar() {
       setTab(tabFromUrl);
     }
   }, [location.search]);
-
+  const handleSignOut = async () =>{
+    try {
+      const res = await fetch('/api/user/signout',{
+        method: 'post',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      }
+      else {
+        dispatch(signoutSuccess());
+      }  
+    
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  
   return (
     <div className="sm:w-48 sm:h-screen shadow-slate-900 shadow-2xl rounded-lg pt-2 flex flex-col">
       <div className="flex-grow pt-2 space-y-2">
@@ -33,7 +56,7 @@ export default function DashSidebar() {
         </Link>
         
         {/* Signout Option */}
-        <Link 
+        <Link onClick={handleSignOut}
           to="/logout" 
           className="flex items-center p-2  hover:font-bold transition-colors"
         >
