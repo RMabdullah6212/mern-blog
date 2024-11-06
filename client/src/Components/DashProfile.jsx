@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import  { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from '../firebase';
@@ -251,7 +251,7 @@ const handleSignOut = async () =>{
                 className="bg-red-500 text-white px-4 py-2 rounded"
                 onClick={handleDeleteUser}
               >
-                Yes, I'm sure
+                Yes, i'm sure
               </button>
               <button
                 className="bg-gray-300 dark:bg-gray-700 text-black dark:text-white px-4 py-2 rounded"
