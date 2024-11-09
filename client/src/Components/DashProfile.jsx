@@ -2,13 +2,15 @@
 import  { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import { Link } from 'react-router-dom';
+
 import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { updateStart, updateSuccess, updateFailure , deleteUserFailure, deleteUserStart, deleteUserSuccess, signoutSuccess} from '../redux/user/userslice';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 export default function DashProfile() {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const filePickerRef = useRef();
   
@@ -224,10 +226,18 @@ const handleSignOut = async () =>{
           onChange={handleChange}
         />
         
-        <button className="text-sm justify-between w-full rounded-lg text-white bg-gradient-to-r from-cyan-500 to-cyan-200 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium h-8 text-center">
-          Update
+        <button className="text-sm justify-between w-full rounded-lg text-white bg-gradient-to-r from-cyan-500 to-cyan-200 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium h-8 text-center" disabled={loading || imageFileUploadProgress < 100 && imageFileUploadProgress > 0}>
+          {loading ? 'loading...' : 'Update'}
+          
         </button>
-        
+        {
+          currentUser.isAdmin && (
+            <Link to={'/create-post'}>
+            <button type='button' className='w-full border-cyan-200'>
+              Create A Post 
+            </button> </Link>
+          )
+        }
         <div className="flex justify-between w-full">
           <button onClick={() =>setShowModal(true)} className="text-sm text-red-600">Delete Account</button>
           <button className="text-sm text-red-600" onClick={handleSignOut}>Sign Out</button>

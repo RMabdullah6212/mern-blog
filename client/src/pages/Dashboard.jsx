@@ -16,7 +16,7 @@ const Dashboard = () => {
     }
   }, [location.search]);
   return (
-    <div className='flex sm:flex-row flex-col'>
+    <div className='flex sm:flex-row flex-col min-h-full'>
       <div className=''>
         {/* sidebar */}
         <DashSidebar />

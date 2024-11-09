@@ -42,7 +42,7 @@ export default function Signin() {
   };
 
   return (
-    <div className="min-h-max mt-14">
+    <div className="min-h-screen mt-14">
       <div className="flex p-3 max-w-3xl h-full mx-auto flex-col sm:flex-row gap-5">
         {/* left */}
         <div className="flex flex-col flex-1 justify-center items-center h-full sm:mt-16 ">
