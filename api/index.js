@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 import cors from 'cors'; // Import the cors package
 import userRouter from './routes/user.routes.js';
 import authRoutes from './routes/auth.routes.js';
+import postRoutes from './routes/post.routes.js';
+
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
@@ -34,6 +36,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRoutes);
+app.use('/api/post', postRoutes);
+
 
 // Error-handling middleware
 app.use((err, req, res, next) => {
